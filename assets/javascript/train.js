@@ -24,10 +24,10 @@ $("#add-employee-btn").on("click", function (event) {
   //getting the users input
   const trainName = $("#train-name-input").val().trim();
   const destination = $("#destination-input").val().trim();
-  const trainTime = moment($("#train-time-input").val().trim(), "HH:mm").format("X");
+  const trainTime = $("#train-time-input").val().trim()
   const trainFrequency = $("#frequency-input").val().trim();
 
-
+  // "HH:mm").format("X");
   //creating an object to store info from the click
 
   const newTrain = {
@@ -39,10 +39,10 @@ $("#add-employee-btn").on("click", function (event) {
   //pushing to the database using .ref
   database.ref().push(newTrain);
   //logging the info
-  console.log(trainName);
-  console.log(destination);
-  console.log(trainTime);
-  console.log(trainFrequency);
+  console.log(newTrain.name);
+  console.log(newTrain.destination);
+  console.log(newTrain.time);
+  console.log(newTrain.frequency);
   alert("Succesfully added new train.")
   //cleariing the text boxes after submitting
   $("#train-name-input").val("");
@@ -59,7 +59,7 @@ database.ref().on("child_added", function (childSnapshot) {
   //storing info into a new variable
   const trainName = childSnapshot.val().name;
   const destination = childSnapshot.val().destination;
-  const firstTrainTime = childSnapshot.val().name;
+  const firstTrainTime = childSnapshot.val().time;
   const trainFrequency = childSnapshot.val().frequency;
   
   //logging the info
@@ -81,7 +81,7 @@ database.ref().on("child_added", function (childSnapshot) {
   // pushing back one year to make sure time is before the current time
   let  trainStartConverted= moment(firstTrainTime, "HH:mm").subtract(1, "years");
      console.log(trainStartConverted);
-  let currentTime = moment().format("hh:mm");
+  let currentTime = moment()
   console.log(currentTime);
 
   let difference = moment().diff(moment(trainStartConverted),"minutes");
